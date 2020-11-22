@@ -1,0 +1,102 @@
+{
+  "name": "decode-environment",
+  "version": "0.0.1",
+  "description": "Decode environment variables with io-ts",
+  "main": "dist/src/decode-environment.js",
+  "types": "dist/src/decode-environment.d.ts",
+  "scripts": {
+    "prepublishOnly": "npm run clean && npm run compile",
+    "compile": "tsc",
+    "watch:compile": "nodemon -e 'ts json' -x 'npm run compile || true'",
+    "clean": "rimraf --no-glob dist",
+    "lint-staged": "lint-staged",
+    "ava": "ava -v",
+    "ava:fail-fast": "ava -v --fail-fast",
+    "ava:serial": "ava -v -s",
+    "watch:ava": "nodemon -e 'ts json' -x 'npm run ava || true'",
+    "watch:ava:fail-fast": "nodemon -e 'ts json' -x 'npm run ava:fail-fast || true'",
+    "watch:ava:serial": "nodemon -e 'ts json' -x 'npm run ava:serial || true'",
+    "watch:ava:bell": "nodemon -e 'ts json' -x 'npm run ava || echo -e \\\\a'",
+    "watch:ava:fail-fast:bell": "nodemon -e 'ts json' -x 'npm run ava:fail-fast || echo -e \\\\a'",
+    "watch:ava:serial:bell": "nodemon -e 'ts json' -x 'npm run ava:serial || echo -e \\\\a'",
+    "lint": "eslint --ext ts .",
+    "lint:fix": "eslint --ext ts --fix .",
+    "prettier:check": "prettier --list-different src/**/*.ts",
+    "prettier:write": "prettier --write src/**/*.ts",
+    "watch:lint": "nodemon -e 'ts js json' -x 'npm run lint || true'",
+    "test": "nyc ava",
+    "watch:test": "nodemon -e 'ts json' -x 'npm test || true'",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "typedoc": "typedoc"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "pre-commit": "lint-staged",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EricCrosson/decode-environment.git"
+  },
+  "author": "Eric Crosson <eric.s.crosson@utexas.edu> (https://github.com/EricCrosson)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EricCrosson/decode-environment/issues"
+  },
+  "homepage": "https://github.com/EricCrosson/decode-environment",
+  "devDependencies": {
+    "@types/node": "^14.14.9",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "ava": "^3.13.0",
+    "ava-fast-check": "^4.0.0",
+    "codecov": "^3.8.1",
+    "eslint": "^7.14.0",
+    "eslint-plugin-ava": "^11.0.0",
+    "eslint-plugin-security": "^1.4.0",
+    "fast-check": "^2.7.0",
+    "lint-staged": "^10.5.1",
+    "nyc": "^15.1.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "2.2.0",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.0.0",
+    "typedoc": "^0.19.2",
+    "typedoc-plugin-markdown": "^3.0.11",
+    "typescript": "~4.0.5"
+  },
+  "files": [
+    "dist/src/"
+  ],
+  "ava": {
+    "files": [
+      "!dist/**/*.d.ts",
+      "test/**/test-*.ts"
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  },
+  "nyc": {
+    "include": [
+      "src/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  },
+  "keywords": [
+    "io-ts",
+    "decode",
+    "environment",
+    "codec"
+  ]
+}

@@ -44,6 +44,27 @@ test('should fail to decode a t.type codec when env does not satisfy requirement
     )
 })
 
+test('should use process.env when no environment is specified', t => {
+    const codec = iots.type({
+        thisEnvVarShouldNeverExist: iots.number,
+    })
+    pipe(
+        decodeEnvironment(codec, env => ({
+            thisEnvVarShouldNeverExist: env('horse'),
+        })),
+        E.fold(
+            () => t.pass(),
+            value => {
+                const _assertion: Congruent<
+                    typeof value,
+                    iots.TypeOf<typeof codec>
+                > = true
+                t.fail()
+            }
+        )
+    )
+})
+
 test('should decode a t.type codec', t => {
     const codec = iots.type({
         horse: iots.string,
@@ -205,6 +226,7 @@ test('should decode a t.intersection codec of length 4', t => {
         )
     )
 })
+
 test('should decode a t.intersection codec of length 5', t => {
     const codec = iots.intersection([
         iots.type({

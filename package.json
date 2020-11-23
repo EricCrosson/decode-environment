@@ -1,6 +1,6 @@
 {
   "name": "decode-environment",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Decode environment variables with io-ts",
   "main": "dist/src/decode-environment.js",
   "types": "dist/src/decode-environment.d.ts",
